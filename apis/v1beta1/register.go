@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "template.upbound.io"
+	Group   = "csc-domain-manager.rollsroyce-sf.com"
 	Version = "v1beta1"
 )
 

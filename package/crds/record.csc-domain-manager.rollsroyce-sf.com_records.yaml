@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: resources.null.template.upbound.io
+  name: records.record.csc-domain-manager.rollsroyce-sf.com
 spec:
-  group: null.template.upbound.io
+  group: record.csc-domain-manager.rollsroyce-sf.com
   names:
     categories:
     - crossplane
     - managed
-    - template
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - csc-domain-manager
+    kind: Record
+    listKind: RecordList
+    plural: records
+    singular: record
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. The null_resource
-          resource implements the standard resource lifecycle but takes no further
-          action.hashicorp. The triggers argument allows specifying an arbitrary set
-          of values that, when changed, will cause the resource to be replaced.
+        description: Record is the Schema for the Records API.
         properties:
           apiVersion:
             description: |-
@@ -57,7 +54,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: RecordSpec defines the desired state of Record
             properties:
               deletionPolicy:
                 default: Delete
@@ -75,14 +72,26 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                  key:
+                    description: (String)
+                    type: string
+                  priority:
+                    description: (Number)
+                    type: number
+                  ttl:
+                    description: (Number)
+                    type: number
+                  type:
+                    description: (String)
+                    type: string
+                  value:
+                    description: (String)
+                    type: string
+                  zone:
+                    description: (String)
+                    type: string
+                required:
+                - type
                 type: object
               initProvider:
                 description: |-
@@ -97,14 +106,21 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                  key:
+                    description: (String)
+                    type: string
+                  priority:
+                    description: (Number)
+                    type: number
+                  ttl:
+                    description: (Number)
+                    type: number
+                  value:
+                    description: (String)
+                    type: string
+                  zone:
+                    description: (String)
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -273,23 +289,51 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.key is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.key)
+                || (has(self.initProvider) && has(self.initProvider.key))'
+            - message: spec.forProvider.value is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.value)
+                || (has(self.initProvider) && has(self.initProvider.value))'
+            - message: spec.forProvider.zone is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.zone)
+                || (has(self.initProvider) && has(self.initProvider.zone))'
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: RecordStatus defines the observed state of Record.
             properties:
               atProvider:
                 properties:
                   id:
-                    description: (String) This is set to a random value at create
-                      time.
+                    description: (String) The ID of this resource.
                     type: string
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                  key:
+                    description: (String)
+                    type: string
+                  lastUpdated:
+                    description: (String)
+                    type: string
+                  priority:
+                    description: (Number)
+                    type: number
+                  status:
+                    description: (String)
+                    type: string
+                  ttl:
+                    description: (Number)
+                    type: number
+                  type:
+                    description: (String)
+                    type: string
+                  value:
+                    description: (String)
+                    type: string
+                  zone:
+                    description: (String)
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

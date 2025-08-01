@@ -1,0 +1,15 @@
+apiVersion: record.csc-domain-manager.rollsroyce-sf.com/v1alpha1
+kind: Record
+metadata:
+  annotations:
+    meta.upbound.io/example-id: record/v1alpha1/record
+  labels:
+    testing.upbound.io/example-name: www_example_com
+  name: www-example-com
+spec:
+  forProvider:
+    key: www
+    ttl: 300
+    type: A
+    value: 127.0.0.1
+    zone: example.com

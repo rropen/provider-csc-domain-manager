@@ -15,17 +15,17 @@
 </p>
 
 
-`upjet-provider-template` is a [Crossplane](https://crossplane.io/) provider that
+`provider-csc-domain-manager` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/crossplane/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
-Template API.
+CSC Domain Manager API.
 
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/upbound/upjet-provider-template):
+to the [latest release](https://marketplace.upbound.io/providers/rropen/provider-csc-domain-manager):
 ```
-crossplane xpkg install provider xpkg.crossplane.io/upbound/upjet-provider-template:v0.1.0
+crossplane xpkg install provider xpkg.crossplane.io/rropen/provider-csc-domain-manager:v0.1.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -34,15 +34,15 @@ cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: upjet-provider-template
+  name: provider-csc-domain-manager
 spec:
-  package: xpkg.crossplane.io/upbound/upjet-provider-template:v0.1.0
+  package: xpkg.crossplane.io/rropen/provider-csc-domain-manager:v0.1.0
 EOF
 ```
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/upbound/upjet-provider-template).
+You can see the API reference [here](https://doc.crds.dev/github.com/rropen/provider-csc-domain-manager).
 
 ## Developing
 
@@ -72,4 +72,4 @@ make build
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/upbound/upjet-provider-template/issues).
+open an [issue](https://github.com/rropen/provider-csc-domain-manager/issues).

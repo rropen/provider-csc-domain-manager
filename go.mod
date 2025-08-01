@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/rropen/provider-csc-domain-manager
 
 go 1.21
 
